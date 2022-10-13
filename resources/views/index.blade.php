@@ -37,10 +37,10 @@
         <td>{{$product->detail}}</td>
         <td>
 
-            <form action="" method="POST">
+            <form action="{{ route('destroy', $product->id);}}" method="POST">
 
-            <a class="btn btn-info" href="">Show</a>
-            <a class="btn btn-primary" href="">Edit</a>
+            <a class="btn btn-info" href="{{route('show', $product->id)}}">Show</a>
+            <a class="btn btn-primary" href="{{route('edit', $product->id)}}">Edit</a>
 
             @csrf 
             @method('DELETE')

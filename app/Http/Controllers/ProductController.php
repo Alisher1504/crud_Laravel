@@ -47,24 +47,46 @@ class ProductController extends Controller
     
     public function show(Product $product)
     {
-        //
+        return view('show', compact('product'));
     }
 
  
     public function edit(Product $product)
     {
-        //
+        return view('edit', compact('product'));
     }
 
    
     public function update(Request $request, Product $product)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'detail' => 'required',
+        ]);
+
+        $input = $request->all();
+
+        if($image = $request->file('image')){
+            $destinationPash = 'images/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPash, $profileImage);
+            $input['image']  = "$profileImage";
+        }
+        else{
+            unset($input['image']);
+        }
+
+        $product->update($input);
+
+        return redirect()->route('index')->with('success', 'product update successfully');
+
     }
 
    
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return redirect()->route('index')->with('success', 'Product delete sucessfully');
     }
 }
