@@ -7,12 +7,17 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     
     public function index()
     {
         $products = Product::latest()->paginate(5);
 
-        return view('index', compact('products'))->with('i', (request()->input('page', 1) -1) * 5);
+        return view('home', compact('products'))->with('i', (request()->input('page', 1) -1) * 5);
     }
 
    
@@ -40,7 +45,7 @@ class ProductController extends Controller
         
         Product::create($input);
 
-        return redirect()->route('index')->with('success', 'Product create successfully');
+        return redirect()->route('home')->with('success', 'Product create successfully');
 
     }
 
@@ -78,7 +83,7 @@ class ProductController extends Controller
 
         $product->update($input);
 
-        return redirect()->route('index')->with('success', 'product update successfully');
+        return redirect()->route('home')->with('success', 'product update successfully');
 
     }
 
@@ -87,6 +92,6 @@ class ProductController extends Controller
     {
         $product->delete();
 
-        return redirect()->route('index')->with('success', 'Product delete sucessfully');
+        return redirect()->route('home')->with('success', 'Product delete sucessfully');
     }
 }

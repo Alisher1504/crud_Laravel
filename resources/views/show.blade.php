@@ -8,7 +8,7 @@
                 <h2>Show Product</h2>
             </div>
             <div class="pull-right">
-                <a href="{{ url('/') }}" class="btn btn-primary">Back</a>
+                <a href="{{ url('/home') }}" class="btn btn-primary">Back</a>
             </div>
         </div>
     </div>
